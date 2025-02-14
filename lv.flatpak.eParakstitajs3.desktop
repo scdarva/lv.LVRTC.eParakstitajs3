@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Eparakstitajs3
+Exec=flatpak run lv.flatpak.eParakstitajs3
+Icon=lv.flatpak.eParakstitajs3
+Type=Application

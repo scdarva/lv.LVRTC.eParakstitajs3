@@ -1,0 +1,43 @@
+id: lv.flatpak.eParakstitajs3
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+command: eparakstitajs3
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=x11
+  - --share=network
+  - --filesystem=host
+modules:
+  - name: eparakstitajs
+    buildsystem: simple
+    build-commands:
+      - ls -lhat
+      - install -Dm755 eparakstitajs3.xpm /app/bin/eparakstitajs3.xpm
+      - install -Dm755 bin/eparakstitajs3 /app/bin/eparakstitajs3
+      - mkdir /app/lib && cp -R lib/ /app/
+      - install -Dm755 apply_extra.sh /app/bin
+      #- mkdir /app/opt && cp -R opt/ /app/
+      #- install -Dm755 lib/* /app/lib/
+      #- install -Dm700 eparakstitajs_archive.tar.gz /app/bin/eparakstitajs_archive.tar.gz
+      #- tar -xzf eparakstitajs_archive.tar.gz
+    sources:
+      - type: script
+        dest-filename: apply_extra.sh
+        commands:
+          - ar x latvia-eid-middleware.deb
+          - tar xf data.tar.xz
+          #- mv usr/share/code vscode
+          #- rm -r code.deb control.tar.* data.tar.xz debian-binary usr
+      - type: archive
+        #dest-filename: eparakstitajs_archive.tar.gz
+        url: https://www.eparaksts.lv/download/333430972/e63e3dc54dbe93670822a048c2762cb14e7b1d42ecc223cf1cde3c26c6290ac1/eparakstitajs3-1.8.2_amd64.tar.gz
+        sha256: e63e3dc54dbe93670822a048c2762cb14e7b1d42ecc223cf1cde3c26c6290ac1
+      - type: extra-data
+        filename: latvia-eid-middleware.deb
+        only-arches: [x86_64]
+        url: https://www.eparaksts.lv/files/ep3updates/debian/pool/eparaksts/l/latvia-eid-middleware/latvia-eid-middleware_2.2.9-4_amd64.deb
+        sha256: 1c146c6370a2033a27ea12daf87384f019096eae411daa03000ed9c920e92035
+        size: 7681328
+
